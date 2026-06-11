@@ -8,16 +8,18 @@ from telegram.ext import (
 # ============================================
 # ⚙️ CONFIG — Token እና Channel ስም ቀይር
 # ============================================
-BOT_TOKEN = "8874025247:AAHRmOD4o-yFsCsu8U4_4mL0O6JAdWseJO8"  # ← Bot Token ይህ ቦታ ላይ ቀይር
+BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"  # ← Bot Token ይህ ቦታ ላይ ቀይር
 CHANNEL_ID = "@KirayGebeyaET"      # ← Channel username
 ADMIN_ID = 434846475               # ← Admin Chat ID
+TELEBIRR_NUMBER = "0909837397"     # ← Telebirr ቁጥር
+LISTING_FEE = 100                  # ← Listing fee (ብር)
 
 # ============================================
 # ደረጃዎች
 # ============================================
-(KIRAY, AYNET, METEN, FOK, WELEL, SEFERI, MENGED, TIMHIRT,
+(PAYMENT, KIRAY, AYNET, METEN, FOK, WELEL, SEFERI, MENGED, TIMHIRT,
  UHA, TANKER, MEBRAT, MABESYA, SHOWER, MEKINA, LEMAN,
- AKERAY, SILKI, PHOTO) = range(18)
+ AKERAY, SILKI, PHOTO) = range(19)
 
 logging.basicConfig(level=logging.INFO)
 
@@ -35,13 +37,66 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "👋 እንኳን ደህና መጡ!\n\n"
         "🏠 *KirayGebeya ET* — ቤትዎን ለማስተዋወቅ እንረዳዎታለን!\n\n"
-        "ጥያቄዎቹን ደረጃ በደረጃ ይመልሱ። ቀላል ነው! 💪\n\n"
         "━━━━━━━━━━━━━━━━\n"
-        "💰 *ኪራይ ዋጋ ስንት ነው?*\n"
-        "_(ምሳሌ: 18,000 ብር)_",
+        "💳 *የምዝገባ ክፍያ: 100 ብር*\n\n"
+        "📱 Telebirr: *0909837397*\n\n"
+        "1. 100 ብር ወደ 0909837397 ላኩ\n"
+        "2. የክፍያ screenshot ወይም transaction ID ይላኩ\n\n"
+        "ክፍያ ሲረጋገጥ ቤትዎ ይለጠፋል! ✅",
         parse_mode="Markdown"
     )
-    return KIRAY
+    return PAYMENT
+
+
+# ============================================
+# ክፍያ ማረጋገጫ
+# ============================================
+async def get_payment(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Accept photo screenshot or text transaction ID
+    if update.message.photo:
+        payment_proof = update.message.photo[-1].file_id
+        context.user_data['payment_proof'] = payment_proof
+        proof_type = "screenshot"
+    else:
+        context.user_data['payment_proof'] = update.message.text
+        proof_type = "text"
+
+    user = update.message.from_user
+    username = f"@{user.username}" if user.username else str(user.id)
+
+    # Notify admin for verification
+    keyboard = ReplyKeyboardMarkup(
+        [[f"✅ አረጋግጥ {user.id}", f"❌ አትቀበል {user.id}"]],
+        one_time_keyboard=True
+    )
+    
+    admin_msg = (
+        f"💳 አዲስ ክፍያ ደረሰ!\n\n"
+        f"👤 ተጠቃሚ: {username}\n"
+        f"💰 100 ብር\n"
+        f"📋 ማስረጃ: {proof_type}\n\n"
+        f"✅ ለማረጋገጥ: /approve_{user.id}\n"
+        f"❌ ለመሰረዝ: /reject_{user.id}"
+    )
+    
+    if update.message.photo:
+        await context.bot.send_photo(
+            chat_id=ADMIN_ID,
+            photo=payment_proof,
+            caption=admin_msg
+        )
+    else:
+        await context.bot.send_message(chat_id=ADMIN_ID, text=admin_msg)
+
+    context.user_data['user_id'] = user.id
+    context.user_data['chat_id'] = update.message.chat_id
+
+    await update.message.reply_text(
+        "✅ ክፍያዎ ተቀብሏል!\n\n"
+        "⏳ እየተረጋገጠ ነው — ትንሽ ይጠብቁ...\n\n"
+        "ሲረጋገጥ ጥያቄዎቹን እንጀምራለን!"
+    )
+    return ConversationHandler.END
 
 # ============================================
 # ጥያቄ 1 — ኪራይ ዋጋ
@@ -337,7 +392,7 @@ async def post_to_channel(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"🟢 መኪና ማቆሚያ፡ {mekina}\n"
         f"🟢 {d.get('leman','')}\n"
         f"🟢 {d.get('akeray','')}\n\n"
-        f"📞 ለመጠይቅ፡ {d.get('silki','')}\n\n"
+        f"📞 ለመጠይቅ፡ @JR_ErmiDo\n\n"
         f"🏠 @KirayGebeyaET"
     )
 
@@ -390,6 +445,48 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     return ConversationHandler.END
 
+
+# ============================================
+# Admin Approve/Reject
+# ============================================
+async def approve(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.message.from_user.id != ADMIN_ID:
+        return
+    
+    try:
+        user_id = int(context.args[0]) if context.args else int(update.message.text.split("_")[1])
+    except:
+        await update.message.reply_text("❌ User ID አልተገኘም")
+        return
+
+    await context.bot.send_message(
+        chat_id=user_id,
+        text=(
+            "✅ ክፍያዎ ተረጋግጧል!\n\n"
+            "አሁን ቤትዎን እናስተዋውቅ — /start ይላኩ 🏠"
+        )
+    )
+    await update.message.reply_text(f"✅ User {user_id} approved!")
+
+async def reject(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.message.from_user.id != ADMIN_ID:
+        return
+    
+    try:
+        user_id = int(context.args[0]) if context.args else int(update.message.text.split("_")[1])
+    except:
+        await update.message.reply_text("❌ User ID አልተገኘም")
+        return
+
+    await context.bot.send_message(
+        chat_id=user_id,
+        text=(
+            "❌ ክፍያዎ አልተረጋገጠም\n\n"
+            "እባክዎ እንደገና ይሞክሩ ወይም @KirayGebeyaET ያግኙን"
+        )
+    )
+    await update.message.reply_text(f"❌ User {user_id} rejected!")
+
 # ============================================
 # MAIN
 # ============================================
@@ -399,6 +496,7 @@ def main():
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)],
         states={
+            PAYMENT: [MessageHandler(filters.TEXT | filters.PHOTO, get_payment)],
             KIRAY: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_kiray)],
             AYNET: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_aynet)],
             METEN: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_meten)],
@@ -425,6 +523,8 @@ def main():
     )
 
     app.add_handler(conv_handler)
+    app.add_handler(CommandHandler("approve", approve))
+    app.add_handler(CommandHandler("reject", reject))
     print("🤖 KirayGebeya Bot እየሰራ ነው...")
     app.run_polling()
 
