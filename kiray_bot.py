@@ -8,7 +8,7 @@ from telegram.ext import (
 # ============================================
 # ⚙️ CONFIG — Token እና Channel ስም ቀይር
 # ============================================
-BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"  # ← Bot Token ይህ ቦታ ላይ ቀይር
+BOT_TOKEN = "8874025247:AAHRmOD4o-yFsCsu8U4_4mL0O6JAdWseJO8"  # ← Bot Token ይህ ቦታ ላይ ቀይር
 CHANNEL_ID = "@KirayGebeyaET"      # ← Channel username
 ADMIN_ID = 434846475               # ← Admin Chat ID
 TELEBIRR_NUMBER = "0909837397"     # ← Telebirr ቁጥር
