@@ -424,7 +424,7 @@ async def post_to_channel(update: Update, context: ContextTypes.DEFAULT_TYPE):
         bot_username = "kiraygebeya_bot"  # ← የBot username ይህ ቦታ ቀይር
 
         button = InlineKeyboardMarkup([
-            [InlineKeyboardButton("📩 ለማጠይቅ ይጫኑ", url=f"https://t.me/{bot_username}")]
+            [InlineKeyboardButton("📩 ለማከራየት ይሄን ማስፈንጠሪያ ይጠቀሙ", url=f"https://t.me/{bot_username}")]
         ])
 
         if len(photos) == 1:
@@ -442,7 +442,7 @@ async def post_to_channel(update: Update, context: ContextTypes.DEFAULT_TYPE):
             # Button ለ media group በተለየ መልኩ
             await context.bot.send_message(
                 chat_id=CHANNEL_ID,
-                text="📩 ማከራየት ይሄን ማስፈንጠሪያ ይጠቀሙ :",
+                text="📩 ለማከራየት ይሄን ማስፈንጠሪያ ይጠቀሙ :",
                 reply_markup=button
             )
 
