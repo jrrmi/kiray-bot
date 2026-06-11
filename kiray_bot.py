@@ -8,7 +8,7 @@ from telegram.ext import (
 # ============================================
 # ⚙️ CONFIG — Token እና Channel ስም ቀይር
 # ============================================
-BOT_TOKEN = "8874025247:AAHRmOD4o-yFsCsu8U4_4mL0O6JAdWseJO8"  # ← Bot Token ይህ ቦታ ላይ ቀይር
+BOT_TOKEN = "8874025247:AAG09BzZhjGSBU8Unjj2PPrczRatlGHbLBg"  # ← Bot Token ይህ ቦታ ላይ ቀይር
 CHANNEL_ID = "@KirayGebeyaET"      # ← Channel username
 ADMIN_ID = 434846475               # ← Admin Chat ID
 TELEBIRR_NUMBER = "0909837397"     # ← Telebirr ቁጥር
@@ -52,51 +52,70 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ክፍያ ማረጋገጫ
 # ============================================
 async def get_payment(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Accept photo screenshot or text transaction ID
     if update.message.photo:
-        payment_proof = update.message.photo[-1].file_id
-        context.user_data['payment_proof'] = payment_proof
-        proof_type = "screenshot"
-    else:
-        context.user_data['payment_proof'] = update.message.text
-        proof_type = "text"
-
-    user = update.message.from_user
-    username = f"@{user.username}" if user.username else str(user.id)
-
-    # Notify admin for verification
-    keyboard = ReplyKeyboardMarkup(
-        [[f"✅ አረጋግጥ {user.id}", f"❌ አትቀበል {user.id}"]],
-        one_time_keyboard=True
-    )
-    
-    admin_msg = (
-        f"💳 አዲስ ክፍያ ደረሰ!\n\n"
-        f"👤 ተጠቃሚ: {username}\n"
-        f"💰 100 ብር\n"
-        f"📋 ማስረጃ: {proof_type}\n\n"
-        f"✅ ለማረጋገጥ: /approve_{user.id}\n"
-        f"❌ ለመሰረዝ: /reject_{user.id}"
-    )
-    
-    if update.message.photo:
-        await context.bot.send_photo(
-            chat_id=ADMIN_ID,
-            photo=payment_proof,
-            caption=admin_msg
+        # ፎቶ ሲላክ — ያስቀምጥ
+        if 'payment_photos' not in context.user_data:
+            context.user_data['payment_photos'] = []
+        context.user_data['payment_photos'].append(update.message.photo[-1].file_id)
+        await update.message.reply_text(
+            f"✅ ፎቶ {len(context.user_data['payment_photos'])} ተቀብሏል!\n"
+            "📸 ሌላ ፎቶ ይላኩ ወይም /done ብለው ይጨርሱ"
         )
+        return PAYMENT
+
+    elif update.message.text and update.message.text == "/done":
+        photos = context.user_data.get('payment_photos', [])
+        if not photos:
+            await update.message.reply_text("⚠️ እባክዎ የክፍያ screenshot ይላኩ!")
+            return PAYMENT
+
+        user = update.message.from_user
+        username = f"@{user.username}" if user.username else str(user.id)
+
+        # Admin ላይ ሁሉንም ፎቶ ላክ
+        from telegram import InputMediaPhoto
+        if len(photos) == 1:
+            await context.bot.send_photo(
+                chat_id=ADMIN_ID,
+                photo=photos[0],
+                caption=(
+                    f"💳 አዲስ ክፍያ ደረሰ!\n\n"
+                    f"👤 ተጠቃሚ: {username}\n"
+                    f"💰 100 ብር\n\n"
+                    f"✅ ለማረጋገጥ: /approve {user.id}\n"
+                    f"❌ ለመሰረዝ: /reject {user.id}"
+                )
+            )
+        else:
+            media = [InputMediaPhoto(media=p) for p in photos]
+            media[0] = InputMediaPhoto(
+                media=photos[0],
+                caption=(
+                    f"💳 አዲስ ክፍያ ደረሰ!\n\n"
+                    f"👤 ተጠቃሚ: {username}\n"
+                    f"💰 100 ብር\n\n"
+                    f"✅ ለማረጋገጥ: /approve {user.id}\n"
+                    f"❌ ለመሰረዝ: /reject {user.id}"
+                )
+            )
+            await context.bot.send_media_group(chat_id=ADMIN_ID, media=media)
+
+        context.user_data['user_id'] = user.id
+        context.user_data['payment_photos'] = []
+
+        await update.message.reply_text(
+            "✅ ክፍያዎ ተቀብሏል!\n\n"
+            "⏳ እየተረጋገጠ ነው — ትንሽ ይጠብቁ...\n\n"
+            "ሲረጋገጥ ጥያቄዎቹን እንጀምራለን! 🏠"
+        )
+        return ConversationHandler.END
+
     else:
-        await context.bot.send_message(chat_id=ADMIN_ID, text=admin_msg)
-
-    context.user_data['user_id'] = user.id
-    context.user_data['chat_id'] = update.message.chat_id
-
-    await update.message.reply_text(
-        "✅ ክፍያዎ ተቀብሏል!\n\n"
-        "⏳ እየተረጋገጠ ነው — ትንሽ ይጠብቁ...\n\n"
-        "ሲረጋገጥ ጥያቄዎቹን እንጀምራለን!"
-    )
-    return ConversationHandler.END
+        await update.message.reply_text(
+            "⚠️ እባክዎ የክፍያ screenshot ይላኩ!\n"
+            "ከዚያ /done ብለው ይጨርሱ"
+        )
+        return PAYMENT
 
 # ============================================
 # ጥያቄ 1 — ኪራይ ዋጋ
@@ -496,7 +515,11 @@ def main():
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)],
         states={
-            PAYMENT: [MessageHandler(filters.TEXT | filters.PHOTO, get_payment)],
+            PAYMENT: [
+                MessageHandler(filters.PHOTO, get_payment),
+                CommandHandler("done", get_payment),
+                MessageHandler(filters.TEXT & ~filters.COMMAND, get_payment),
+            ],
             KIRAY: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_kiray)],
             AYNET: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_aynet)],
             METEN: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_meten)],
