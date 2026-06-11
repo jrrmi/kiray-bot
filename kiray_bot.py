@@ -1,5 +1,5 @@
 import logging
-from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     Application, CommandHandler, MessageHandler,
     filters, ContextTypes, ConversationHandler
@@ -420,17 +420,31 @@ async def post_to_channel(update: Update, context: ContextTypes.DEFAULT_TYPE):
     photos = d.get('photos', [])
 
     try:
+        # Bot username ያስፈልጋል — ይህን ቀይር
+        bot_username = "kiraygebeya_bot"  # ← የBot username ይህ ቦታ ቀይር
+
+        button = InlineKeyboardMarkup([
+            [InlineKeyboardButton("📩 ለማጠይቅ ይጫኑ", url=f"https://t.me/{bot_username}")]
+        ])
+
         if len(photos) == 1:
             await context.bot.send_photo(
                 chat_id=CHANNEL_ID,
                 photo=photos[0],
-                caption=caption
+                caption=caption,
+                reply_markup=button
             )
         elif len(photos) > 1:
             from telegram import InputMediaPhoto
             media = [InputMediaPhoto(media=p) for p in photos]
             media[0] = InputMediaPhoto(media=photos[0], caption=caption)
             await context.bot.send_media_group(chat_id=CHANNEL_ID, media=media)
+            # Button ለ media group በተለየ መልኩ
+            await context.bot.send_message(
+                chat_id=CHANNEL_ID,
+                text="📩 ለማጠይቅ ወይም ለተጨማሪ መረጃ:",
+                reply_markup=button
+            )
 
         await update.message.reply_text(
             f"🎉 ተሳካ!\n\n"
