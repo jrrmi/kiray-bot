@@ -37,15 +37,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "👋 እንኳን ደህና መጡ!\n\n"
         "🏠 *KirayGebeya ET* — ቤትዎን ለማስተዋወቅ እንረዳዎታለን!\n\n"
+        "ጥያቄዎቹን ደረጃ በደረጃ ይመልሱ። ቀላል ነው! 💪\n\n"
         "━━━━━━━━━━━━━━━━\n"
-        "💳 *የምዝገባ ክፍያ: 100 ብር*\n\n"
-        "📱 Telebirr: *0909837397*\n\n"
-        "1. 100 ብር ወደ 0909837397 ላኩ\n"
-        "2. የክፍያ screenshot ወይም transaction ID ይላኩ\n\n"
-        "ክፍያ ሲረጋገጥ ቤትዎ ይለጠፋል! ✅",
+        "💰 *ኪራይ ዋጋ ስንት ነው?*\n"
+        "_(ምሳሌ: 18,000 ብር)_",
         parse_mode="Markdown"
     )
-    return PAYMENT
+    return KIRAY
 
 
 # ============================================
@@ -104,11 +102,15 @@ async def get_payment(update: Update, context: ContextTypes.DEFAULT_TYPE):
         context.user_data['payment_photos'] = []
 
         await update.message.reply_text(
-            "✅ ክፍያዎ ተቀብሏል!\n\n"
-            "⏳ እየተረጋገጠ ነው — ትንሽ ይጠብቁ...\n\n"
-            "ሲረጋገጥ ጥያቄዎቹን እንጀምራለን! 🏠"
+            "━━━━━━━━━━━━━━━━\n"
+            "💳 የምዝገባ ክፍያ: 100 ብር\n\n"
+            "📱 Telebirr: 0909837397\n\n"
+            "1. 100 ብር ወደ 0909837397 ላኩ\n"
+            "2. የክፍያ screenshot ይላኩ\n"
+            "3. /done ብለው ይጨርሱ\n\n"
+            "ክፍያ ሲደርስ ቤትዎ ወዲያው ይለጠፋል! ✅"
         )
-        return ConversationHandler.END
+        return PAYMENT
 
     else:
         await update.message.reply_text(
