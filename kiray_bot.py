@@ -442,7 +442,7 @@ async def post_to_channel(update: Update, context: ContextTypes.DEFAULT_TYPE):
             # Button ለ media group በተለየ መልኩ
             await context.bot.send_message(
                 chat_id=CHANNEL_ID,
-                text="📩 ለማጠይቅ ወይም ለተጨማሪ መረጃ:",
+                text="📩 ማከራየት ይሄን ማስፈንጠሪያ ይጠቀሙ :",
                 reply_markup=button
             )
 
