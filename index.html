@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KirayGebeya ET | የቤት ኪራይ</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --green: #1a8f4f;
+    --green-light: #e8f5ee;
+    --green-dark: #146a3c;
+    --gold: #f0a500;
+    --bg: #f7f8fa;
+    --white: #ffffff;
+    --text: #1a1a2e;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --radius: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--green);
+    color: white;
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(26,143,79,0.3);
+  }
+
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: white;
+  }
+
+  .logo-icon {
+    width: 38px;
+    height: 38px;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .logo-text {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+
+  .logo-sub {
+    font-size: 11px;
+    opacity: 0.8;
+    display: block;
+    font-weight: 400;
+  }
+
+  .tg-btn {
+    background: white;
+    color: var(--green);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+    color: white;
+    padding: 40px 20px 50px;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .hero p {
+    font-size: 15px;
+    opacity: 0.85;
+    margin-bottom: 24px;
+  }
+
+  /* SEARCH */
+  .search-box {
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+
+  .search-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .search-input {
+    flex: 1;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-input:focus { border-color: var(--green); }
+
+  .search-btn {
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+
+  .filter-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .filter-select {
+    flex: 1;
+    min-width: 120px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--text);
+    background: white;
+    outline: none;
+    cursor: pointer;
+  }
+
+  /* STATS */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    background: var(--green-light);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--green);
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* MAIN */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .count-badge {
+    background: var(--green-light);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+
+  /* LISTINGS GRID */
+  .listings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  /* CARD */
+  .card {
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border: 1px solid var(--border);
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+
+  .card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background: var(--green-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: var(--green);
+  }
+
+  .card-img img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .card-body {
+    padding: 14px;
+  }
+
+  .card-code {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .card-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+
+  .card-type {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .card-location {
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+
+  .card-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .tag {
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .card-btn {
+    width: 100%;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    transition: background 0.2s;
+  }
+
+  .card-btn:hover { background: var(--green-dark); }
+
+  /* LOADING */
+  .loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--green);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* EMPTY */
+  .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+
+  .empty-icon { font-size: 48px; margin-bottom: 12px; }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .modal-overlay.open {
+    display: flex;
+  }
+
+  .modal {
+    background: white;
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 20px;
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .modal-close {
+    background: var(--bg);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+
+  .modal-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    background: var(--green-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+  }
+
+  .modal-img img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .detail-item {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+
+  .detail-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+
+  .detail-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .modal-contact {
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    margin-top: 16px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--text);
+    color: white;
+    text-align: center;
+    padding: 24px;
+    margin-top: 40px;
+    font-size: 13px;
+  }
+
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* LISTING CTA */
+  .list-cta {
+    background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+    color: white;
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    margin: 24px 0;
+  }
+
+  .list-cta h3 { font-size: 18px; margin-bottom: 8px; }
+  .list-cta p { font-size: 14px; opacity: 0.85; margin-bottom: 16px; }
+
+  .list-cta-btn {
+    background: white;
+    color: var(--green);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  @media (max-width: 500px) {
+    .hero h1 { font-size: 22px; }
+    .listings-grid { grid-template-columns: 1fr; }
+    .detail-grid { grid-template-columns: 1fr; }
+    .stats { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#">
+      <div class="logo-icon">🏠</div>
+      <div>
+        <span class="logo-text">KirayGebeya ET</span>
+        <span class="logo-sub">የቤት ኪራይ አገልግሎት</span>
+      </div>
+    </a>
+    <a class="tg-btn" href="https://t.me/KirayGebeyaET" target="_blank">
+      ✈️ Telegram
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>🏠 ቤት ፈልገዋል?</h1>
+  <p>አዲስ አበባ ውስጥ ምርጥ ቤቶች — ቀጥታ ከባለቤቱ</p>
+
+  <div class="search-box">
+    <div class="search-row">
+      <input class="search-input" id="searchInput" type="text" placeholder="ሰፈር ፈልግ... (ምሳሌ: ቦሌ, ገርጂ)">
+      <button class="search-btn" onclick="filterListings()">🔍 ፈልግ</button>
+    </div>
+    <div class="filter-row">
+      <select class="filter-select" id="priceFilter" onchange="filterListings()">
+        <option value="">💰 ሁሉም ዋጋ</option>
+        <option value="0-5000">እስከ 5,000 ብር</option>
+        <option value="5000-10000">5,000 - 10,000 ብር</option>
+        <option value="10000-20000">10,000 - 20,000 ብር</option>
+        <option value="20000-50000">20,000 - 50,000 ብር</option>
+        <option value="50000+">50,000+ ብር</option>
+      </select>
+      <select class="filter-select" id="typeFilter" onchange="filterListings()">
+        <option value="">🏠 ሁሉም አይነት</option>
+        <option value="1 ክፍል">1 ክፍል</option>
+        <option value="2 ክፍል">2 ክፍል</option>
+        <option value="3 ክፍል">3 ክፍል</option>
+        <option value="ቪላ">ቪላ</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num" id="totalCount">-</div>
+    <div class="stat-label">ቤቶች አሉ</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">🆓</div>
+    <div class="stat-label">ነፃ ፍለጋ</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">⚡</div>
+    <div class="stat-label">ፈጣን ምላሽ</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LIST CTA -->
+  <div class="list-cta">
+    <h3>🏠 ቤትዎን ሊያከራዩ ፈልገዋል?</h3>
+    <p>Bot ተጠቅመው ቤትዎን ወዲያው ያስተዋውቁ — 100 ብር ብቻ!</p>
+    <a class="list-cta-btn" href="https://t.me/KirayGebeyaET" target="_blank">
+      ✈️ Bot ክፈት → ቤት አስተዋውቅ
+    </a>
+  </div>
+
+  <!-- LISTINGS -->
+  <div class="section-title">
+    🏘️ ዝርዝር ቤቶች
+    <span class="count-badge" id="shownCount">...</span>
+  </div>
+
+  <div id="listingsContainer">
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>ቤቶች እየተጫኑ ነው...</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div>
+        <div id="modalCode" style="font-size:12px;color:#6b7280;font-weight:600;"></div>
+        <div class="modal-price" id="modalPrice"></div>
+        <div style="font-size:15px;font-weight:600;" id="modalType"></div>
+      </div>
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div class="modal-img" id="modalImg"></div>
+    <div class="detail-grid" id="modalDetails"></div>
+    <a class="modal-contact" id="modalContact" href="https://t.me/JR_ErmiDo" target="_blank">
+      📩 @JR_ErmiDo ጋር ያግኙ
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>🏠 <strong>KirayGebeya ET</strong> — አዲስ አበባ የቤት ኪራይ</p>
+  <p style="margin-top:8px;">
+    <a href="https://t.me/KirayGebeyaET" target="_blank">✈️ Telegram Channel</a>
+    &nbsp;|&nbsp;
+    <a href="https://t.me/JR_ErmiDo" target="_blank">📩 ያግኙን</a>
+  </p>
+  <p style="margin-top:8px;opacity:0.6;font-size:12px;">© 2024 KirayGebeya ET</p>
+</footer>
+
+<script>
+// ============================================
+// CONFIG
+// ============================================
+const BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"; // ← Bot Token ይህ ቦታ ቀይር
+const CHANNEL = "@KirayGebeyaET";
+const ADMIN_USERNAME = "JR_ErmiDo";
+
+let allListings = [];
+let filteredListings = [];
+
+// ============================================
+// Fetch from Telegram
+// ============================================
+async function fetchListings() {
+  try {
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?limit=100&allowed_updates=["channel_post"]`;
+
+    // Try channel messages
+    const channelUrl = `https://api.telegram.org/bot${BOT_TOKEN}/getChat?chat_id=${encodeURIComponent(CHANNEL)}`;
+    
+    // Get channel posts
+    const msgsUrl = `https://api.telegram.org/bot${BOT_TOKEN}/forwardMessage`;
+    
+    // Use getChatHistory via updates
+    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=-100&limit=100`);
+    const data = await res.json();
+
+    if (!data.ok) {
+      showDemoListings();
+      return;
+    }
+
+    const posts = data.result
+      .filter(u => u.channel_post && u.channel_post.caption)
+      .map(u => u.channel_post);
+
+    if (posts.length === 0) {
+      showDemoListings();
+      return;
+    }
+
+    allListings = posts.map(parsePost).filter(Boolean);
+    filteredListings = [...allListings];
+    renderListings(filteredListings);
+    document.getElementById('totalCount').textContent = allListings.length;
+
+  } catch(e) {
+    showDemoListings();
+  }
+}
+
+// ============================================
+// Parse Telegram post caption
+// ============================================
+function parsePost(post) {
+  const text = post.caption || post.text || "";
+  if (!text.includes("CODE")) return null;
+
+  const getVal = (label) => {
+    const regex = new RegExp(`${label}[፡:]\\s*(.+?)(?:\\n|$)`);
+    const m = text.match(regex);
+    return m ? m[1].trim() : "";
+  };
+
+  const codeMatch = text.match(/CODE\s+(BT\s*\d+)/);
+  const priceMatch = text.match(/ኪራይ[፡:]?\s*([0-9,،]+)\s*ብር/);
+
+  // Get photo
+  let photoUrl = null;
+  if (post.photo && post.photo.length > 0) {
+    const fileId = post.photo[post.photo.length - 1].file_id;
+    photoUrl = `https://api.telegram.org/file/bot${BOT_TOKEN}/${fileId}`;
+  }
+
+  return {
+    id: post.message_id,
+    code: codeMatch ? codeMatch[1] : "BT 0000",
+    price: priceMatch ? priceMatch[1] + " ብር" : getVal("ኪራይ"),
+    priceNum: priceMatch ? parseInt(priceMatch[1].replace(/,/g,'')) : 0,
+    type: getVal("የሚከራይ") || text.match(/የሚከራይ\s+(.+?)\s+🔥/)?.[1] || "ቤት",
+    location: getVal("ሰፈሩ"),
+    water: getVal("ውሃ"),
+    electricity: getVal("መብራት"),
+    kitchen: getVal("ማብሰያ ክፍል"),
+    shower: getVal("ሻወር"),
+    parking: getVal("መኪና ማቆሚያ"),
+    tanker: getVal("ታንከር"),
+    forWho: getVal("ለ"),
+    nearRoad: text.match(/🟢\s*(ከ[^\n]+ታክሲ[^\n]*)/)?.[1] || "",
+    photoUrl,
+    rawText: text,
+    date: post.date,
+  };
+}
+
+// ============================================
+// Render listings
+// ============================================
+function renderListings(listings) {
+  const container = document.getElementById('listingsContainer');
+  document.getElementById('shownCount').textContent = listings.length + " ቤት";
+
+  if (listings.length === 0) {
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">🔍</div>
+        <p>ምንም ቤት አልተገኘም</p>
+        <p style="font-size:13px;margin-top:8px;">ፍለጋዎን ቀይሩ</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = `<div class="listings-grid">
+    ${listings.map(l => cardHTML(l)).join('')}
+  </div>`;
+}
+
+function cardHTML(l) {
+  const imgHTML = l.photoUrl
+    ? `<div class="card-img"><img src="${l.photoUrl}" alt="ቤት" onerror="this.parentElement.innerHTML='🏠'"></div>`
+    : `<div class="card-img">🏠</div>`;
+
+  const tags = [];
+  if (l.parking && l.parking.includes("አለ")) tags.push("🚗 ፓርኪንግ");
+  if (l.kitchen && l.kitchen.includes("አለ")) tags.push("🍳 ወጥ ቤት");
+  if (l.tanker && l.tanker.includes("አለ")) tags.push("💧 ታንከር");
+
+  return `
+  <div class="card" onclick="openModal(${l.id})">
+    ${imgHTML}
+    <div class="card-body">
+      <div class="card-code">▫️ ${l.code}</div>
+      <div class="card-price">${l.price}</div>
+      <div class="card-type">${l.type}</div>
+      <div class="card-location">📍 ${l.location || "አዲስ አበባ"}</div>
+      ${tags.length ? `<div class="card-tags">${tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>` : ''}
+      <a class="card-btn" href="https://t.me/JR_ErmiDo" target="_blank" onclick="event.stopPropagation()">
+        📩 ለማጠይቅ ይጫኑ
+      </a>
+    </div>
+  </div>`;
+}
+
+// ============================================
+// Modal
+// ============================================
+function openModal(id) {
+  const l = allListings.find(x => x.id === id);
+  if (!l) return;
+
+  document.getElementById('modalCode').textContent = "▫️ " + l.code;
+  document.getElementById('modalPrice').textContent = l.price;
+  document.getElementById('modalType').textContent = l.type;
+
+  const imgEl = document.getElementById('modalImg');
+  imgEl.innerHTML = l.photoUrl
+    ? `<img src="${l.photoUrl}" alt="ቤት" onerror="this.parentElement.innerHTML='🏠'">`
+    : "🏠";
+
+  const details = [
+    { label: "ሰፈር", value: l.location },
+    { label: "ውሃ", value: l.water },
+    { label: "መብራት", value: l.electricity },
+    { label: "ወጥ ቤት", value: l.kitchen },
+    { label: "ሻወር/ሽንት ቤት", value: l.shower },
+    { label: "ታንከር", value: l.tanker },
+    { label: "ፓርኪንግ", value: l.parking },
+    { label: "ለማን", value: l.forWho },
+  ].filter(d => d.value);
+
+  document.getElementById('modalDetails').innerHTML = details.map(d => `
+    <div class="detail-item">
+      <div class="detail-label">${d.label}</div>
+      <div class="detail-value">${d.value}</div>
+    </div>`).join('');
+
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+}
+
+function closeModalDirect() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+// ============================================
+// Filter
+// ============================================
+function filterListings() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const priceRange = document.getElementById('priceFilter').value;
+  const type = document.getElementById('typeFilter').value;
+
+  filteredListings = allListings.filter(l => {
+    const matchSearch = !search ||
+      (l.location && l.location.toLowerCase().includes(search)) ||
+      (l.type && l.type.toLowerCase().includes(search)) ||
+      (l.rawText && l.rawText.toLowerCase().includes(search));
+
+    let matchPrice = true;
+    if (priceRange) {
+      const [min, max] = priceRange.split('-').map(x => x === '50000+' ? Infinity : parseInt(x));
+      if (priceRange === '50000+') matchPrice = l.priceNum >= 50000;
+      else matchPrice = l.priceNum >= min && l.priceNum <= max;
+    }
+
+    const matchType = !type || (l.type && l.type.includes(type));
+
+    return matchSearch && matchPrice && matchType;
+  });
+
+  renderListings(filteredListings);
+}
+
+document.getElementById('searchInput').addEventListener('keyup', e => {
+  if (e.key === 'Enter') filterListings();
+});
+
+// ============================================
+// Demo listings (Token ሳይኖር)
+// ============================================
+function showDemoListings() {
+  allListings = [
+    {
+      id: 1, code: "BT 1373", price: "18,000 ብር", priceNum: 18000,
+      type: "1 ክፍል", location: "ገርጂ (የረር አለማየሁ)",
+      water: "በሳምንት 2/3 ቀን", electricity: "እንደሌላው አካባቢ",
+      kitchen: "የለም ❌", shower: "ከ1 ክፍል ጋር የጋራ",
+      parking: "አለ ✅", tanker: "አለ ✅", forWho: "ለሁለቱም",
+      photoUrl: null, rawText: "", date: Date.now()/1000
+    },
+    {
+      id: 2, code: "BT 2841", price: "25,000 ብር", priceNum: 25000,
+      type: "2 ክፍል", location: "ቦሌ (ሜዳሃኒዓለም)",
+      water: "ሁልጊዜ አለ", electricity: "እንደሌላው አካባቢ",
+      kitchen: "አለ ✅", shower: "ብቻዬን ✅",
+      parking: "አለ ✅", tanker: "አለ ✅", forWho: "ለባለትዳር",
+      photoUrl: null, rawText: "", date: Date.now()/1000
+    },
+    {
+      id: 3, code: "BT 3190", price: "12,000 ብር", priceNum: 12000,
+      type: "1 ክፍል", location: "ሜክሲኮ (ሰርቶ ይኑር)",
+      water: "አልፎ አልፎ", electricity: "እንደሌላው አካባቢ",
+      kitchen: "የለም ❌", shower: "ከ2 ክፍል ጋር የጋራ",
+      parking: "የለም ❌", tanker: "አለ ✅", forWho: "ለላጤ",
+      photoUrl: null, rawText: "", date: Date.now()/1000
+    }
+  ];
+
+  filteredListings = [...allListings];
+  renderListings(filteredListings);
+  document.getElementById('totalCount').textContent = allListings.length;
+}
+
+// ============================================
+// Get photo URL from file_id
+// ============================================
+async function getPhotoUrl(fileId) {
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getFile?file_id=${fileId}`);
+    const data = await res.json();
+    if (data.ok) {
+      return `https://api.telegram.org/file/bot${BOT_TOKEN}/${data.result.file_path}`;
+    }
+  } catch(e) {}
+  return null;
+}
+
+// Init
+fetchListings();
+</script>
+</body>
+</html>
