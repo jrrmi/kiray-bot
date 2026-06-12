@@ -3,337 +3,403 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KirayGebeya ET | የቤት ኪራይ</title>
+<title>ኪራይ ገበያ | Kiray Gebeya </title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
   :root {
-    --green: #1a8f4f;
-    --green-light: #e8f5ee;
-    --green-dark: #146a3c;
-    --gold: #f0a500;
-    --bg: #f7f8fa;
-    --white: #ffffff;
-    --text: #1a1a2e;
-    --text-muted: #6b7280;
-    --border: #e5e7eb;
-    --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    --radius: 14px;
+    --navy:       #1B3A6B;
+    --navy-dark:  #122850;
+    --navy-light: #2a4f8f;
+    --gold:       #F0A500;
+    --gold-light: #FFF4D6;
+    --gold-dark:  #C88A00;
+    --bg:         #F4F6FA;
+    --white:      #FFFFFF;
+    --text:       #1a2340;
+    --text-muted: #6b7a9a;
+    --border:     #DDE2EE;
+    --shadow:     0 2px 16px rgba(27,58,107,0.10);
+    --radius:     14px;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin:0; padding:0; box-sizing:border-box; }
 
   body {
     font-family: 'Noto Sans Ethiopic', 'Inter', sans-serif;
     background: var(--bg);
     color: var(--text);
-    min-height: 100vh;
   }
 
-  /* HEADER */
+  /* ── HEADER ── */
   header {
-    background: var(--green);
-    color: white;
-    padding: 0 20px;
+    background: var(--navy);
+    padding: 0 24px;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 12px rgba(26,143,79,0.3);
+    box-shadow: 0 2px 16px rgba(27,58,107,0.25);
   }
-
   .header-inner {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 60px;
+    height: 64px;
   }
-
   .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     text-decoration: none;
-    color: white;
   }
-
-  .logo-icon {
-    width: 38px;
-    height: 38px;
-    background: white;
+  .logo-mark {
+    width: 42px; height: 42px;
+    background: var(--gold);
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
   }
-
-  .logo-text {
-    font-size: 17px;
-    font-weight: 700;
+  .logo-name {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--white);
     letter-spacing: -0.3px;
   }
-
-  .logo-sub {
+  .logo-tagline {
     font-size: 11px;
-    opacity: 0.8;
+    color: rgba(255,255,255,0.65);
     display: block;
     font-weight: 400;
   }
-
-  .tg-btn {
-    background: white;
-    color: var(--green);
-    border: none;
-    padding: 8px 14px;
+  .nav-right { display: flex; gap: 10px; align-items: center; }
+  .nav-btn {
+    background: transparent;
+    color: rgba(255,255,255,0.85);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    padding: 7px 14px;
     border-radius: 8px;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    font-family: inherit;
+    transition: all 0.2s;
   }
-
-  /* HERO */
-  .hero {
-    background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
-    color: white;
-    padding: 40px 20px 50px;
-    text-align: center;
-  }
-
-  .hero h1 {
-    font-size: 26px;
+  .nav-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .nav-btn.primary {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
     font-weight: 700;
-    margin-bottom: 8px;
-    line-height: 1.3;
   }
+  .nav-btn.primary:hover { background: var(--gold-dark); }
 
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, var(--navy-light) 100%);
+    padding: 52px 24px 64px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(240,165,0,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -40px;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(240,165,0,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    background: rgba(240,165,0,0.15);
+    color: var(--gold);
+    border: 1px solid rgba(240,165,0,0.3);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .hero h1 span { color: var(--gold); }
   .hero p {
     font-size: 15px;
-    opacity: 0.85;
-    margin-bottom: 24px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 32px;
+    max-width: 480px;
+    margin-left: auto; margin-right: auto;
   }
 
-  /* SEARCH */
-  .search-box {
+  /* ── SEARCH BOX ── */
+  .search-wrap {
     background: white;
-    border-radius: 14px;
-    padding: 16px;
-    max-width: 600px;
+    border-radius: 16px;
+    padding: 18px;
+    max-width: 640px;
     margin: 0 auto;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 32px rgba(27,58,107,0.2);
+    position: relative; z-index: 1;
   }
-
-  .search-row {
+  .search-main {
     display: flex;
     gap: 10px;
     margin-bottom: 12px;
   }
-
   .search-input {
     flex: 1;
-    border: 1.5px solid var(--border);
+    border: 2px solid var(--border);
     border-radius: 10px;
-    padding: 10px 14px;
+    padding: 11px 16px;
     font-size: 14px;
     font-family: inherit;
     color: var(--text);
     outline: none;
     transition: border-color 0.2s;
+    background: var(--bg);
   }
-
-  .search-input:focus { border-color: var(--green); }
-
+  .search-input:focus { border-color: var(--navy); background: white; }
   .search-btn {
-    background: var(--green);
+    background: var(--navy);
     color: white;
     border: none;
     border-radius: 10px;
-    padding: 10px 20px;
+    padding: 11px 22px;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     font-family: inherit;
     white-space: nowrap;
+    transition: background 0.2s;
   }
-
-  .filter-row {
+  .search-btn:hover { background: var(--navy-dark); }
+  .search-filters {
     display: flex;
     gap: 8px;
-    flex-wrap: wrap;
   }
-
   .filter-select {
     flex: 1;
-    min-width: 120px;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 10px;
+    border: 2px solid var(--border);
+    border-radius: 9px;
+    padding: 9px 10px;
     font-size: 13px;
     font-family: inherit;
     color: var(--text);
-    background: white;
+    background: var(--bg);
     outline: none;
     cursor: pointer;
+    transition: border-color 0.2s;
   }
+  .filter-select:focus { border-color: var(--navy); }
 
-  /* STATS */
-  .stats {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 20px;
-    background: var(--green-light);
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: white;
     border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
   }
-
-  .stat {
-    text-align: center;
-  }
-
-  .stat-num {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--green);
-  }
-
-  .stat-label {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-
-  /* MAIN */
-  .main {
-    max-width: 900px;
+  .stats-inner {
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 20px;
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-size: 20px; font-weight: 800; color: var(--navy); }
+  .stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
+
+  /* ── MAIN ── */
+  .main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 28px 20px;
   }
 
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .cta-banner-text h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+  }
+  .cta-banner-text p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+  }
+  .cta-gold-btn {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 22px;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s;
+    display: inline-block;
+  }
+  .cta-gold-btn:hover { background: var(--gold-dark); }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
   .section-title {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--text);
-    margin-bottom: 16px;
     display: flex;
     align-items: center;
     gap: 8px;
   }
-
   .count-badge {
-    background: var(--green-light);
-    color: var(--green);
+    background: var(--gold-light);
+    color: var(--gold-dark);
     font-size: 12px;
-    font-weight: 600;
-    padding: 2px 8px;
+    font-weight: 700;
+    padding: 3px 10px;
     border-radius: 20px;
+    border: 1px solid rgba(240,165,0,0.25);
   }
+  .tg-link {
+    font-size: 13px;
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .tg-link:hover { color: var(--gold-dark); }
 
-  /* LISTINGS GRID */
+  /* ── GRID ── */
   .listings-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 18px;
   }
 
-  /* CARD */
+  /* ── CARD ── */
   .card {
     background: white;
     border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: var(--card-shadow);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
-    border: 1px solid var(--border);
   }
-
   .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(27,58,107,0.15);
   }
-
-  .card-img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    background: var(--green-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    color: var(--green);
+  .card-photo {
+    width: 100%; height: 190px;
+    background: linear-gradient(135deg, #e8edf5, #dde2ee);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 44px;
+    position: relative;
+    overflow: hidden;
   }
-
-  .card-img img {
-    width: 100%;
-    height: 180px;
+  .card-photo img {
+    width: 100%; height: 190px;
     object-fit: cover;
   }
-
-  .card-body {
-    padding: 14px;
-  }
-
-  .card-code {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 6px;
-  }
-
-  .card-price {
-    font-size: 20px;
+  .card-code-badge {
+    position: absolute;
+    top: 10px; left: 10px;
+    background: rgba(27,58,107,0.85);
+    color: white;
+    font-size: 10px;
     font-weight: 700;
-    color: var(--green);
-    margin-bottom: 4px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(4px);
   }
-
+  .card-body { padding: 16px; }
+  .card-price {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .card-price span { font-size: 13px; font-weight: 500; color: var(--text-muted); }
   .card-type {
     font-size: 14px;
     font-weight: 600;
     color: var(--text);
     margin-bottom: 8px;
   }
-
-  .card-location {
+  .card-loc {
     font-size: 13px;
     color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 4px;
+    display: flex; align-items: center; gap: 5px;
     margin-bottom: 10px;
   }
-
-  .card-tags {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
+  .card-amenities {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 14px;
   }
-
-  .tag {
-    background: var(--green-light);
-    color: var(--green-dark);
+  .amenity {
+    background: var(--gold-light);
+    color: var(--gold-dark);
     font-size: 11px;
-    padding: 3px 8px;
+    font-weight: 600;
+    padding: 3px 9px;
     border-radius: 20px;
-    font-weight: 500;
+    border: 1px solid rgba(240,165,0,0.2);
   }
-
-  .card-btn {
+  .amenity.navy {
+    background: #EEF2F9;
+    color: var(--navy);
+    border-color: rgba(27,58,107,0.12);
+  }
+  .card-cta {
     width: 100%;
-    background: var(--green);
+    background: var(--navy);
     color: white;
     border: none;
-    border-radius: 8px;
-    padding: 10px;
+    border-radius: 9px;
+    padding: 11px;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     font-family: inherit;
     text-decoration: none;
@@ -341,204 +407,146 @@
     text-align: center;
     transition: background 0.2s;
   }
+  .card-cta:hover { background: var(--navy-dark); }
 
-  .card-btn:hover { background: var(--green-dark); }
-
-  /* LOADING */
-  .loading {
+  /* ── LOADING / EMPTY ── */
+  .loading, .empty {
     text-align: center;
-    padding: 60px 20px;
+    padding: 70px 20px;
     color: var(--text-muted);
   }
-
   .spinner {
-    width: 40px;
-    height: 40px;
+    width: 44px; height: 44px;
     border: 3px solid var(--border);
-    border-top-color: var(--green);
+    border-top-color: var(--navy);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
-    margin: 0 auto 16px;
+    margin: 0 auto 18px;
   }
-
   @keyframes spin { to { transform: rotate(360deg); } }
+  .empty-icon { font-size: 52px; margin-bottom: 14px; }
+  .empty h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
 
-  /* EMPTY */
-  .empty {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--text-muted);
-  }
-
-  .empty-icon { font-size: 48px; margin-bottom: 12px; }
-
-  /* MODAL */
-  .modal-overlay {
+  /* ── MODAL ── */
+  .overlay {
     display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
+    position: fixed; inset: 0;
+    background: rgba(18,40,80,0.55);
     z-index: 200;
     align-items: flex-end;
     justify-content: center;
+    backdrop-filter: blur(3px);
   }
-
-  .modal-overlay.open {
-    display: flex;
-  }
-
+  .overlay.open { display: flex; }
   .modal {
     background: white;
-    border-radius: 20px 20px 0 0;
-    width: 100%;
-    max-width: 600px;
-    max-height: 90vh;
+    border-radius: 22px 22px 0 0;
+    width: 100%; max-width: 620px;
+    max-height: 92vh;
     overflow-y: auto;
-    padding: 20px;
-    animation: slideUp 0.3s ease;
+    padding: 24px;
+    animation: slideUp 0.28s ease;
   }
-
-  @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
+  @keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
+  .modal-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 18px;
   }
-
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-
   .modal-close {
     background: var(--bg);
-    border: none;
-    width: 32px;
-    height: 32px;
+    border: none; width: 34px; height: 34px;
     border-radius: 50%;
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted);
+    transition: background 0.2s;
   }
-
-  .modal-price {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--green);
-    margin-bottom: 4px;
+  .modal-close:hover { background: var(--border); }
+  .modal-code { font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .modal-price { font-size: 26px; font-weight: 800; color: var(--navy); margin-bottom: 2px; }
+  .modal-type { font-size: 15px; font-weight: 600; color: var(--text); }
+  .modal-photo {
+    width: 100%; height: 230px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #e8edf5, #dde2ee);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 64px;
+    margin-bottom: 18px;
+    overflow: hidden;
   }
-
-  .modal-img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 16px;
-    background: var(--green-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 60px;
-  }
-
-  .modal-img img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 12px;
-  }
-
+  .modal-photo img { width:100%; height:230px; object-fit:cover; border-radius:14px; }
   .detail-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
   }
-
   .detail-item {
     background: var(--bg);
     border-radius: 10px;
-    padding: 10px 12px;
+    padding: 11px 13px;
+    border: 1px solid var(--border);
   }
-
-  .detail-label {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 3px;
-  }
-
-  .detail-value {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .modal-contact {
-    background: var(--green);
+  .detail-label { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+  .detail-value { font-size: 13px; font-weight: 600; color: var(--text); }
+  .modal-cta {
+    background: var(--navy);
     color: white;
     border: none;
-    border-radius: 12px;
-    padding: 14px;
+    border-radius: 13px;
+    padding: 15px;
     width: 100%;
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    transition: background 0.2s;
+    margin-bottom: 10px;
+  }
+  .modal-cta:hover { background: var(--navy-dark); }
+  .modal-cta-tg {
+    background: var(--gold-light);
+    color: var(--navy);
+    border: none;
+    border-radius: 13px;
+    padding: 12px;
+    width: 100%;
+    font-size: 14px;
     font-weight: 700;
     cursor: pointer;
     font-family: inherit;
     text-decoration: none;
     display: block;
     text-align: center;
-    margin-top: 16px;
+    border: 1.5px solid rgba(240,165,0,0.3);
+    transition: background 0.2s;
   }
+  .modal-cta-tg:hover { background: #ffe9a0; }
 
-  /* FOOTER */
+  /* ── FOOTER ── */
   footer {
-    background: var(--text);
-    color: white;
+    background: var(--navy-dark);
+    color: rgba(255,255,255,0.7);
     text-align: center;
-    padding: 24px;
-    margin-top: 40px;
+    padding: 28px 24px;
+    margin-top: 48px;
     font-size: 13px;
   }
-
+  footer strong { color: white; }
   footer a { color: var(--gold); text-decoration: none; }
+  .footer-logo { font-size: 28px; margin-bottom: 8px; }
 
-  /* LISTING CTA */
-  .list-cta {
-    background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
-    color: white;
-    border-radius: var(--radius);
-    padding: 24px;
-    text-align: center;
-    margin: 24px 0;
-  }
-
-  .list-cta h3 { font-size: 18px; margin-bottom: 8px; }
-  .list-cta p { font-size: 14px; opacity: 0.85; margin-bottom: 16px; }
-
-  .list-cta-btn {
-    background: white;
-    color: var(--green);
-    border: none;
-    border-radius: 10px;
-    padding: 12px 24px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  @media (max-width: 500px) {
-    .hero h1 { font-size: 22px; }
+  /* ── RESPONSIVE ── */
+  @media (max-width: 540px) {
+    .hero h1 { font-size: 24px; }
     .listings-grid { grid-template-columns: 1fr; }
     .detail-grid { grid-template-columns: 1fr; }
-    .stats { gap: 20px; }
+    .stats-inner { gap: 20px; }
+    .cta-banner { flex-direction: column; text-align: center; }
+    .search-filters { flex-direction: column; }
   }
 </style>
 </head>
@@ -548,42 +556,45 @@
 <header>
   <div class="header-inner">
     <a class="logo" href="#">
-      <div class="logo-icon">🏠</div>
+      <div class="logo-mark">🏠</div>
       <div>
-        <span class="logo-text">KirayGebeya ET</span>
-        <span class="logo-sub">የቤት ኪራይ አገልግሎት</span>
+        <span class="logo-name">ኪራይ ገበያ ET</span>
+        <span class="logo-tagline">Kiray Gebeya | Rental Marketplace</span>
       </div>
     </a>
-    <a class="tg-btn" href="https://t.me/KirayGebeyaET" target="_blank">
-      ✈️ Telegram
-    </a>
+    <div class="nav-right">
+      <a class="nav-btn" href="https://t.me/KirayGebeyaET" target="_blank">✈️ telegram</a>
+      <a class="nav-btn primary" href="https://t.me/KirayGebeyaET" target="_blank">+ ቤት ለማስተዋወቅ </a>
+    </div>
   </div>
 </header>
 
 <!-- HERO -->
 <div class="hero">
-  <h1>🏠 ቤት ፈልገዋል?</h1>
-  <p>አዲስ አበባ ውስጥ ምርጥ ቤቶች — ቀጥታ ከባለቤቱ</p>
+  <div class="hero-eyebrow">🇪🇹 አዲስ አበባ #1 Rental Marketplace</div>
+  <h1>ቤት ፈልገዋል? <span>እዚህ ያግኙ</span></h1>
+  <p>ፈጣን፣ ታማኝ፣ ምቹ — ከባለቤቱ ቀጥታ ቤት ያግኙ</p>
 
-  <div class="search-box">
-    <div class="search-row">
-      <input class="search-input" id="searchInput" type="text" placeholder="ሰፈር ፈልግ... (ምሳሌ: ቦሌ, ገርጂ)">
+  <div class="search-wrap">
+    <div class="search-main">
+      <input class="search-input" id="searchInput" type="text"
+        placeholder="ሰፈር ፈልጉ... (ቦሌ, ገርጂ, ሜክሲኮ...)">
       <button class="search-btn" onclick="filterListings()">🔍 ፈልግ</button>
     </div>
-    <div class="filter-row">
+    <div class="search-filters">
       <select class="filter-select" id="priceFilter" onchange="filterListings()">
         <option value="">💰 ሁሉም ዋጋ</option>
         <option value="0-5000">እስከ 5,000 ብር</option>
-        <option value="5000-10000">5,000 - 10,000 ብር</option>
-        <option value="10000-20000">10,000 - 20,000 ብር</option>
-        <option value="20000-50000">20,000 - 50,000 ብር</option>
+        <option value="5000-10000">5,000 – 10,000 ብር</option>
+        <option value="10000-20000">10,000 – 20,000 ብር</option>
+        <option value="20000-50000">20,000 – 50,000 ብር</option>
         <option value="50000+">50,000+ ብር</option>
       </select>
       <select class="filter-select" id="typeFilter" onchange="filterListings()">
         <option value="">🏠 ሁሉም አይነት</option>
         <option value="1 ክፍል">1 ክፍል</option>
         <option value="2 ክፍል">2 ክፍል</option>
-        <option value="3 ክፍል">3 ክፍል</option>
+        <option value="3 ክፍል">3+ ክፍል</option>
         <option value="ቪላ">ቪላ</option>
       </select>
     </div>
@@ -591,39 +602,50 @@
 </div>
 
 <!-- STATS -->
-<div class="stats">
-  <div class="stat">
-    <div class="stat-num" id="totalCount">-</div>
-    <div class="stat-label">ቤቶች አሉ</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">🆓</div>
-    <div class="stat-label">ነፃ ፍለጋ</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">⚡</div>
-    <div class="stat-label">ፈጣን ምላሽ</div>
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num" id="totalCount">—</div>
+      <div class="stat-label">ቤቶች አሉ</div>
+    </div>
+    
+    <div class="stat">
+      <div class="stat-num">⚡</div>
+      <div class="stat-label">ፈጣን ምላሽ</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">🛡️</div>
+      <div class="stat-label">ታማኝ አገልግሎት</div>
+    </div>
   </div>
 </div>
 
 <!-- MAIN -->
 <div class="main">
 
-  <!-- LIST CTA -->
-  <div class="list-cta">
-    <h3>🏠 ቤትዎን ሊያከራዩ ፈልገዋል?</h3>
-    <p>Bot ተጠቅመው ቤትዎን ወዲያው ያስተዋውቁ — 100 ብር ብቻ!</p>
-    <a class="list-cta-btn" href="https://t.me/KirayGebeyaET" target="_blank">
-      ✈️ Bot ክፈት → ቤት አስተዋውቅ
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <div class="cta-banner-text">
+      <h3>🏠 ቤትዎን ሊያከራዩ ፈልገዋል?</h3>
+      <p>100 ብር ብቻ — Bot ተጠቅመው ወዲያው ያስተዋውቁ! ሺዎች ይመለከቱታል።</p>
+    </div>
+    <a class="cta-gold-btn" href="https://t.me/KirayGebeyaET" target="_blank">
+      ✈️ አሁን ጀምሩ →
+    </a>
+  </div>
+
+  <!-- LISTINGS HEADER -->
+  <div class="section-header">
+    <div class="section-title">
+      🏘️ ዝርዝር ቤቶች
+      <span class="count-badge" id="shownCount">...</span>
+    </div>
+    <a class="tg-link" href="https://t.me/KirayGebeyaET" target="_blank">
+      ሁሉንም ይመልከቱ ↗
     </a>
   </div>
 
   <!-- LISTINGS -->
-  <div class="section-title">
-    🏘️ ዝርዝር ቤቶች
-    <span class="count-badge" id="shownCount">...</span>
-  </div>
-
   <div id="listingsContainer">
     <div class="loading">
       <div class="spinner"></div>
@@ -634,307 +656,230 @@
 </div>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal" id="modal">
-    <div class="modal-header">
+<div class="overlay" id="overlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-top">
       <div>
-        <div id="modalCode" style="font-size:12px;color:#6b7280;font-weight:600;"></div>
-        <div class="modal-price" id="modalPrice"></div>
-        <div style="font-size:15px;font-weight:600;" id="modalType"></div>
+        <div class="modal-code" id="mCode"></div>
+        <div class="modal-price" id="mPrice"></div>
+        <div class="modal-type" id="mType"></div>
       </div>
       <button class="modal-close" onclick="closeModalDirect()">✕</button>
     </div>
-    <div class="modal-img" id="modalImg"></div>
-    <div class="detail-grid" id="modalDetails"></div>
-    <a class="modal-contact" id="modalContact" href="https://t.me/JR_ErmiDo" target="_blank">
+    <div class="modal-photo" id="mPhoto"></div>
+    <div class="detail-grid" id="mDetails"></div>
+    <a class="modal-cta" href="https://t.me/JR_ErmiDo" target="_blank">
       📩 @JR_ErmiDo ጋር ያግኙ
+    </a>
+    <a class="modal-cta-tg" href="https://t.me/KirayGebeyaET" target="_blank">
+      ✈️ Telegram Channel ክፈቱ
     </a>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
-  <p>🏠 <strong>KirayGebeya ET</strong> — አዲስ አበባ የቤት ኪራይ</p>
-  <p style="margin-top:8px;">
+  <div class="footer-logo">🏠</div>
+  <p><strong>ኪራይ ገበያ ET</strong> — Kiray Gebeya | Rental Marketplace</p>
+  <p style="margin-top:10px;">
     <a href="https://t.me/KirayGebeyaET" target="_blank">✈️ Telegram Channel</a>
-    &nbsp;|&nbsp;
+    &nbsp;·&nbsp;
     <a href="https://t.me/JR_ErmiDo" target="_blank">📩 ያግኙን</a>
   </p>
-  <p style="margin-top:8px;opacity:0.6;font-size:12px;">© 2024 KirayGebeya ET</p>
+  <p style="margin-top:12px;font-size:12px;opacity:0.5;">© 2026 KirayGebeya ET · አዲስ አበባ</p>
 </footer>
 
 <script>
-// ============================================
-// CONFIG
-// ============================================
-const BOT_TOKEN = "8874025247:AAHRmOD4o-yFsCsu8U4_4mL0O6JAdWseJO8"; // ← Bot Token ይህ ቦታ ቀይር
-const CHANNEL = "@KirayGebeyaET";
-const ADMIN_USERNAME = "JR_ErmiDo";
+const BOT_TOKEN = "8874025247:AAHRmOD4o-yFsCsu8U4_4mL0O6JAdWseJO8"; // ← ይህ ቦታ Token ቀይር
+const CHANNEL  = "@KirayGebeyaET";
+let allListings = [], filteredListings = [];
 
-let allListings = [];
-let filteredListings = [];
-
-// ============================================
-// Fetch from Telegram
-// ============================================
+// ── Fetch ──
 async function fetchListings() {
   try {
-    const url = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?limit=100&allowed_updates=["channel_post"]`;
-
-    // Try channel messages
-    const channelUrl = `https://api.telegram.org/bot${BOT_TOKEN}/getChat?chat_id=${encodeURIComponent(CHANNEL)}`;
-    
-    // Get channel posts
-    const msgsUrl = `https://api.telegram.org/bot${BOT_TOKEN}/forwardMessage`;
-    
-    // Use getChatHistory via updates
-    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=-100&limit=100`);
+    const res  = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=-100&limit=100`);
     const data = await res.json();
-
-    if (!data.ok) {
-      showDemoListings();
-      return;
-    }
+    if (!data.ok) { showDemo(); return; }
 
     const posts = data.result
-      .filter(u => u.channel_post && u.channel_post.caption)
+      .filter(u => u.channel_post && (u.channel_post.caption || u.channel_post.text))
       .map(u => u.channel_post);
 
-    if (posts.length === 0) {
-      showDemoListings();
-      return;
-    }
+    if (!posts.length) { showDemo(); return; }
 
     allListings = posts.map(parsePost).filter(Boolean);
     filteredListings = [...allListings];
-    renderListings(filteredListings);
+    render(filteredListings);
     document.getElementById('totalCount').textContent = allListings.length;
-
-  } catch(e) {
-    showDemoListings();
-  }
+  } catch { showDemo(); }
 }
 
-// ============================================
-// Parse Telegram post caption
-// ============================================
+// ── Parse ──
 function parsePost(post) {
   const text = post.caption || post.text || "";
   if (!text.includes("CODE")) return null;
 
-  const getVal = (label) => {
-    const regex = new RegExp(`${label}[፡:]\\s*(.+?)(?:\\n|$)`);
-    const m = text.match(regex);
+  const g = (label) => {
+    const m = text.match(new RegExp(`${label}[፡:]\\s*(.+?)(?:\\n|$)`));
     return m ? m[1].trim() : "";
   };
 
-  const codeMatch = text.match(/CODE\s+(BT\s*\d+)/);
-  const priceMatch = text.match(/ኪራይ[፡:]?\s*([0-9,،]+)\s*ብር/);
+  const codeM  = text.match(/CODE\s+(BT\s*\d+)/);
+  const priceM = text.match(/ኪራይ[፡:]?\s*([0-9,]+)\s*ብር/);
+  const typeM  = text.match(/የሚከራይ\s+(.+?)\s+🔥/);
 
-  // Get photo
-  let photoUrl = null;
-  if (post.photo && post.photo.length > 0) {
-    const fileId = post.photo[post.photo.length - 1].file_id;
-    photoUrl = `https://api.telegram.org/file/bot${BOT_TOKEN}/${fileId}`;
-  }
+  let photoFileId = null;
+  if (post.photo) photoFileId = post.photo[post.photo.length-1].file_id;
 
   return {
     id: post.message_id,
-    code: codeMatch ? codeMatch[1] : "BT 0000",
-    price: priceMatch ? priceMatch[1] + " ብር" : getVal("ኪራይ"),
-    priceNum: priceMatch ? parseInt(priceMatch[1].replace(/,/g,'')) : 0,
-    type: getVal("የሚከራይ") || text.match(/የሚከራይ\s+(.+?)\s+🔥/)?.[1] || "ቤት",
-    location: getVal("ሰፈሩ"),
-    water: getVal("ውሃ"),
-    electricity: getVal("መብራት"),
-    kitchen: getVal("ማብሰያ ክፍል"),
-    shower: getVal("ሻወር"),
-    parking: getVal("መኪና ማቆሚያ"),
-    tanker: getVal("ታንከር"),
-    forWho: getVal("ለ"),
-    nearRoad: text.match(/🟢\s*(ከ[^\n]+ታክሲ[^\n]*)/)?.[1] || "",
-    photoUrl,
+    code:     codeM  ? codeM[1]  : "BT ????",
+    price:    priceM ? priceM[1] + " ብር" : g("ኪራይ"),
+    priceNum: priceM ? parseInt(priceM[1].replace(/,/g,'')) : 0,
+    type:     typeM  ? typeM[1]  : g("አይነት") || "ቤት",
+    location: g("ሰፈሩ"),
+    water:    g("ውሃ"),
+    mebrat:   g("መብራት"),
+    kitchen:  g("ማብሰያ ክፍል"),
+    shower:   g("ሻወር"),
+    parking:  g("መኪና ማቆሚያ"),
+    tanker:   g("ታንከር"),
+    forWho:   text.match(/🟢\s*(ለ[ላባ][^\n]+)/)?.[1] || "",
+    photoFileId,
     rawText: text,
-    date: post.date,
   };
 }
 
-// ============================================
-// Render listings
-// ============================================
-function renderListings(listings) {
-  const container = document.getElementById('listingsContainer');
-  document.getElementById('shownCount').textContent = listings.length + " ቤት";
+// ── Photo URL ──
+async function getPhotoUrl(fileId) {
+  try {
+    const r = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getFile?file_id=${fileId}`);
+    const d = await r.json();
+    if (d.ok) return `https://api.telegram.org/file/bot${BOT_TOKEN}/${d.result.file_path}`;
+  } catch {}
+  return null;
+}
 
-  if (listings.length === 0) {
-    container.innerHTML = `
-      <div class="empty">
-        <div class="empty-icon">🔍</div>
-        <p>ምንም ቤት አልተገኘም</p>
-        <p style="font-size:13px;margin-top:8px;">ፍለጋዎን ቀይሩ</p>
-      </div>`;
+// ── Render ──
+function render(list) {
+  const c = document.getElementById('listingsContainer');
+  document.getElementById('shownCount').textContent = list.length + " ቤት";
+  if (!list.length) {
+    c.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><h3>ምንም ቤት አልተገኘም</h3><p style="font-size:13px;margin-top:6px;color:var(--text-muted)">ፍለጋዎን ቀይሩ ወይም ሁሉንም ይመልከቱ</p></div>`;
     return;
   }
-
-  container.innerHTML = `<div class="listings-grid">
-    ${listings.map(l => cardHTML(l)).join('')}
-  </div>`;
+  c.innerHTML = `<div class="listings-grid">${list.map(cardHTML).join('')}</div>`;
 }
 
 function cardHTML(l) {
-  const imgHTML = l.photoUrl
-    ? `<div class="card-img"><img src="${l.photoUrl}" alt="ቤት" onerror="this.parentElement.innerHTML='🏠'"></div>`
-    : `<div class="card-img">🏠</div>`;
+  const amenities = [];
+  if (l.parking?.includes("አለ"))  amenities.push({t:"🚗 ፓርኪንግ",  cls:"navy"});
+  if (l.kitchen?.includes("አለ"))  amenities.push({t:"🍳 ወጥ ቤት",  cls:""});
+  if (l.tanker?.includes("አለ"))   amenities.push({t:"💧 ታንከር",   cls:""});
+  if (l.shower?.includes("ብቻ"))   amenities.push({t:"🚿 ቤት ብቻ",  cls:"navy"});
 
-  const tags = [];
-  if (l.parking && l.parking.includes("አለ")) tags.push("🚗 ፓርኪንግ");
-  if (l.kitchen && l.kitchen.includes("አለ")) tags.push("🍳 ወጥ ቤት");
-  if (l.tanker && l.tanker.includes("አለ")) tags.push("💧 ታንከር");
+  const photo = l.photoFileId
+    ? `<img src="https://api.telegram.org/file/bot${BOT_TOKEN}/${l.photoFileId}" alt="" onerror="this.parentElement.innerHTML='🏠'">`
+    : "🏠";
 
   return `
   <div class="card" onclick="openModal(${l.id})">
-    ${imgHTML}
+    <div class="card-photo">
+      ${photo}
+      <div class="card-code-badge">${l.code}</div>
+    </div>
     <div class="card-body">
-      <div class="card-code">▫️ ${l.code}</div>
-      <div class="card-price">${l.price}</div>
+      <div class="card-price">${l.price} <span>/ወር</span></div>
       <div class="card-type">${l.type}</div>
-      <div class="card-location">📍 ${l.location || "አዲስ አበባ"}</div>
-      ${tags.length ? `<div class="card-tags">${tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>` : ''}
-      <a class="card-btn" href="https://t.me/JR_ErmiDo" target="_blank" onclick="event.stopPropagation()">
+      <div class="card-loc">📍 ${l.location || "አዲስ አበባ"}</div>
+      ${amenities.length ? `<div class="card-amenities">${amenities.map(a=>`<span class="amenity ${a.cls}">${a.t}</span>`).join('')}</div>` : ''}
+      <a class="card-cta" href="https://t.me/JR_ErmiDo" target="_blank" onclick="event.stopPropagation()">
         📩 ለማጠይቅ ይጫኑ
       </a>
     </div>
   </div>`;
 }
 
-// ============================================
-// Modal
-// ============================================
+// ── Modal ──
 function openModal(id) {
   const l = allListings.find(x => x.id === id);
   if (!l) return;
+  document.getElementById('mCode').textContent  = "▫️ " + l.code;
+  document.getElementById('mPrice').textContent = l.price + " /ወር";
+  document.getElementById('mType').textContent  = l.type;
 
-  document.getElementById('modalCode').textContent = "▫️ " + l.code;
-  document.getElementById('modalPrice').textContent = l.price;
-  document.getElementById('modalType').textContent = l.type;
-
-  const imgEl = document.getElementById('modalImg');
-  imgEl.innerHTML = l.photoUrl
-    ? `<img src="${l.photoUrl}" alt="ቤት" onerror="this.parentElement.innerHTML='🏠'">`
+  const ph = document.getElementById('mPhoto');
+  ph.innerHTML = l.photoFileId
+    ? `<img src="https://api.telegram.org/file/bot${BOT_TOKEN}/${l.photoFileId}" alt="" onerror="this.innerHTML='🏠'">`
     : "🏠";
 
-  const details = [
-    { label: "ሰፈር", value: l.location },
-    { label: "ውሃ", value: l.water },
-    { label: "መብራት", value: l.electricity },
-    { label: "ወጥ ቤት", value: l.kitchen },
-    { label: "ሻወር/ሽንት ቤት", value: l.shower },
-    { label: "ታንከር", value: l.tanker },
-    { label: "ፓርኪንግ", value: l.parking },
-    { label: "ለማን", value: l.forWho },
-  ].filter(d => d.value);
+  const rows = [
+    ["ሰፈር",         l.location],
+    ["ውሃ",          l.water],
+    ["መብራት",        l.mebrat],
+    ["ወጥ ቤት",       l.kitchen],
+    ["ሻወር/ሽንት ቤት", l.shower],
+    ["ታንከር",        l.tanker],
+    ["ፓርኪንግ",       l.parking],
+    ["ለማን",         l.forWho],
+  ].filter(r => r[1]);
 
-  document.getElementById('modalDetails').innerHTML = details.map(d => `
+  document.getElementById('mDetails').innerHTML = rows.map(r => `
     <div class="detail-item">
-      <div class="detail-label">${d.label}</div>
-      <div class="detail-value">${d.value}</div>
+      <div class="detail-label">${r[0]}</div>
+      <div class="detail-value">${r[1]}</div>
     </div>`).join('');
 
-  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
 }
+function closeModal(e)  { if (e.target.id==="overlay") closeModalDirect(); }
+function closeModalDirect() { document.getElementById('overlay').classList.remove('open'); }
 
-function closeModal(e) {
-  if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
-}
-
-function closeModalDirect() {
-  document.getElementById('modalOverlay').classList.remove('open');
-}
-
-// ============================================
-// Filter
-// ============================================
+// ── Filter ──
 function filterListings() {
-  const search = document.getElementById('searchInput').value.toLowerCase();
-  const priceRange = document.getElementById('priceFilter').value;
-  const type = document.getElementById('typeFilter').value;
+  const q  = document.getElementById('searchInput').value.toLowerCase();
+  const pr = document.getElementById('priceFilter').value;
+  const tp = document.getElementById('typeFilter').value;
 
   filteredListings = allListings.filter(l => {
-    const matchSearch = !search ||
-      (l.location && l.location.toLowerCase().includes(search)) ||
-      (l.type && l.type.toLowerCase().includes(search)) ||
-      (l.rawText && l.rawText.toLowerCase().includes(search));
-
-    let matchPrice = true;
-    if (priceRange) {
-      const [min, max] = priceRange.split('-').map(x => x === '50000+' ? Infinity : parseInt(x));
-      if (priceRange === '50000+') matchPrice = l.priceNum >= 50000;
-      else matchPrice = l.priceNum >= min && l.priceNum <= max;
+    const mQ = !q || [l.location, l.type, l.rawText].some(s => s?.toLowerCase().includes(q));
+    let mP = true;
+    if (pr) {
+      if (pr === '50000+') mP = l.priceNum >= 50000;
+      else { const [a,b] = pr.split('-').map(Number); mP = l.priceNum >= a && l.priceNum <= b; }
     }
-
-    const matchType = !type || (l.type && l.type.includes(type));
-
-    return matchSearch && matchPrice && matchType;
+    const mT = !tp || l.type?.includes(tp);
+    return mQ && mP && mT;
   });
-
-  renderListings(filteredListings);
+  render(filteredListings);
 }
+document.getElementById('searchInput').addEventListener('keyup', e => { if(e.key==='Enter') filterListings(); });
 
-document.getElementById('searchInput').addEventListener('keyup', e => {
-  if (e.key === 'Enter') filterListings();
-});
-
-// ============================================
-// Demo listings (Token ሳይኖር)
-// ============================================
-function showDemoListings() {
+// ── Demo ──
+function showDemo() {
   allListings = [
-    {
-      id: 1, code: "BT 1373", price: "18,000 ብር", priceNum: 18000,
-      type: "1 ክፍል", location: "ገርጂ (የረር አለማየሁ)",
-      water: "በሳምንት 2/3 ቀን", electricity: "እንደሌላው አካባቢ",
-      kitchen: "የለም ❌", shower: "ከ1 ክፍል ጋር የጋራ",
-      parking: "አለ ✅", tanker: "አለ ✅", forWho: "ለሁለቱም",
-      photoUrl: null, rawText: "", date: Date.now()/1000
-    },
-    {
-      id: 2, code: "BT 2841", price: "25,000 ብር", priceNum: 25000,
-      type: "2 ክፍል", location: "ቦሌ (ሜዳሃኒዓለም)",
-      water: "ሁልጊዜ አለ", electricity: "እንደሌላው አካባቢ",
-      kitchen: "አለ ✅", shower: "ብቻዬን ✅",
-      parking: "አለ ✅", tanker: "አለ ✅", forWho: "ለባለትዳር",
-      photoUrl: null, rawText: "", date: Date.now()/1000
-    },
-    {
-      id: 3, code: "BT 3190", price: "12,000 ብር", priceNum: 12000,
-      type: "1 ክፍል", location: "ሜክሲኮ (ሰርቶ ይኑር)",
-      water: "አልፎ አልፎ", electricity: "እንደሌላው አካባቢ",
-      kitchen: "የለም ❌", shower: "ከ2 ክፍል ጋር የጋራ",
-      parking: "የለም ❌", tanker: "አለ ✅", forWho: "ለላጤ",
-      photoUrl: null, rawText: "", date: Date.now()/1000
-    }
+    { id:1, code:"BT 1373", price:"18,000 ብር", priceNum:18000, type:"1 ክፍል",
+      location:"ገርጂ (የረር አለማየሁ)", water:"በሳምንት 2/3 ቀን", mebrat:"እንደሌላው አካባቢ",
+      kitchen:"የለም ❌", shower:"ከ1 ክፍል ጋር የጋራ", parking:"አለ ✅", tanker:"አለ ✅",
+      forWho:"ለሁለቱም", photoFileId:null, rawText:"" },
+    { id:2, code:"BT 2841", price:"25,000 ብር", priceNum:25000, type:"2 ክፍል",
+      location:"ቦሌ (ሜዳሃኒዓለም)", water:"ሁልጊዜ አለ", mebrat:"እንደሌላው አካባቢ",
+      kitchen:"አለ ✅", shower:"ብቻዬን ✅", parking:"አለ ✅", tanker:"አለ ✅",
+      forWho:"ለባለትዳር", photoFileId:null, rawText:"" },
+    { id:3, code:"BT 3190", price:"12,000 ብር", priceNum:12000, type:"1 ክፍል",
+      location:"ሜክሲኮ", water:"አልፎ አልፎ", mebrat:"እንደሌላው አካባቢ",
+      kitchen:"የለም ❌", shower:"ከ2 ክፍል ጋር የጋራ", parking:"የለም ❌", tanker:"አለ ✅",
+      forWho:"ለላጤ", photoFileId:null, rawText:"" },
+    { id:4, code:"BT 4052", price:"35,000 ብር", priceNum:35000, type:"3 ክፍል",
+      location:"ካዛንቺስ", water:"ሁልጊዜ አለ", mebrat:"እንደሌላው አካባቢ",
+      kitchen:"አለ ✅", shower:"ብቻዬን ✅", parking:"አለ ✅", tanker:"አለ ✅",
+      forWho:"ለባለትዳር", photoFileId:null, rawText:"" },
   ];
-
   filteredListings = [...allListings];
-  renderListings(filteredListings);
+  render(filteredListings);
   document.getElementById('totalCount').textContent = allListings.length;
 }
 
-// ============================================
-// Get photo URL from file_id
-// ============================================
-async function getPhotoUrl(fileId) {
-  try {
-    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getFile?file_id=${fileId}`);
-    const data = await res.json();
-    if (data.ok) {
-      return `https://api.telegram.org/file/bot${BOT_TOKEN}/${data.result.file_path}`;
-    }
-  } catch(e) {}
-  return null;
-}
-
-// Init
 fetchListings();
 </script>
 </body>
